@@ -1,0 +1,15 @@
+.bash_history
+.bashrc
+.cache/
+.cargo/
+.config/
+.gitconfig
+.profile
+.python_history
+.ssh/
+.wget-hsts
+venv/
+downloads/
+storage/
+orders.txt
+bot.log
