@@ -1,8 +1,6 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv(os.path.expanduser('~/senior-automation-suite/.env'))
-
+load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_ID = int(os.getenv("ADMIN_ID"))
-LOG_FILE = "logs/bot_core.log"
+ADMIN_ID = int(os.getenv("ADMIN_ID")) if os.getenv("ADMIN_ID") else 0
