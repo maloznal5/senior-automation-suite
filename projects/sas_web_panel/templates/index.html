@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAS Enterprise Panel</title>
+    <style>
+        :root { --bg: #0d1117; --surface: #161b22; --border: #30363d; --text: #c9d1d9; --accent: #238636; --accent-hover: #2ea043; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Courier New', Courier, monospace; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: var(--surface); padding: 20px; border: 1px solid var(--border); border-radius: 8px; }
+        h1, h2 { color: #58a6ff; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .btn-group { display: flex; gap: 10px; margin-bottom: 20px; }
+        button { background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 10px 15px; border-radius: 6px; cursor: pointer; transition: 0.2s; font-family: inherit; }
+        button:hover { background: var(--border); }
+        .btn-primary { background: var(--accent); color: #fff; border: none; }
+        .btn-primary:hover { background: var(--accent-hover); }
+        textarea { width: 100%; height: 150px; background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 10px; border-radius: 6px; resize: vertical; margin-bottom: 10px; font-family: inherit; }
+        pre.tree { background: var(--bg); padding: 15px; border: 1px solid var(--border); border-left: 3px solid #58a6ff; overflow-x: auto; border-radius: 6px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ SAS Control Center</h1>
+        
+        <div class="btn-group">
+            <button onclick="window.open('https://gemini.google.com/', '_blank')">🧠 Open Gemini</button>
+            <button onclick="fetch('/open_folder').then(r=>r.text()).then(a=>alert(a))">📂 Open Project Folder</button>
+        </div>
+
+        <h2>📝 Быстрый отклик (Bidding)</h2>
+        <textarea id="bidText">{{ bids }}</textarea>
+        <button class="btn-primary" onclick="copyBid()">📋 Copy to Clipboard</button>
+
+        <h2>📁 Архитектура (Tree)</h2>
+        <pre class="tree">{{ tree }}</pre>
+    </div>
+
+    <script>
+        function copyBid() {
+            const text = document.getElementById("bidText").value;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector('.btn-primary');
+                const originalText = btn.innerText;
+                btn.innerText = "✅ Скопировано!";
+                btn.style.background = "#238636";
+                setTimeout(() => { btn.innerText = originalText; }, 2000);
+            }).catch(err => {
+                alert("Ошибка копирования: " + err);
+            });
+        }
+    </script>
+</body>
+</html>
