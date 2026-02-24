@@ -1,3 +1,9 @@
+#!/bin/bash
+ROOT="$HOME/senior-automation-suite"
+BOT_PATH="$ROOT/projects/sas_monitor_bot"
+
+# 1. Перезапись основного файла без psutil
+cat << 'EOT' > $BOT_PATH/src/main.py
 import asyncio
 import subprocess
 from telebot.async_telebot import AsyncTeleBot
@@ -68,3 +74,14 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+EOT
+
+# 2. Фиксация в GitHub
+cd $ROOT
+git add .
+git commit -m "fix: replace psutil with native subprocess for Termux compatibility"
+git push origin main
+
+# 3. Мгновенный запуск
+cd $BOT_PATH/src
+python main.py
